@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Product</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: white;
+            padding: 30px;
+            color: #333;
+            text-align: center;
+        }
+
+        h2 {
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            margin: 10px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #2980b9;
+        }
+
+        form {
+            margin-top: 30px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            width: 300px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Select What You Want to Update</h2>
+
+<!-- Buttons to choose update type -->
+<button class="btn" onclick="showForm('warranty')">Update Warranty</button>
+<button class="btn" onclick="showForm('place')">Update Place</button>
+
+<!-- Form containers -->
+<div id="formContainer"></div>
+
+<script>
+    function showForm(type) {
+        let formHtml = '<form method="post" action="/UpdateProduct">';
+        formHtml += '<input type="text" name="id" placeholder="Enter Product ID" required><br>';
+
+        if (type === 'warranty') {
+            formHtml += '<input type="text" name="updatedWarranty" placeholder="Enter new warranty" required><br>';
+        } else if (type === 'place') {
+            formHtml += '<input type="text" name="updatedPlace" placeholder="Enter new place" required><br>';
+        }
+
+        formHtml += '<input type="submit" value="Update">';
+        formHtml += '</form>';
+
+        document.getElementById('formContainer').innerHTML = formHtml;
+    }
+</script>
+
+</body>
+</html>

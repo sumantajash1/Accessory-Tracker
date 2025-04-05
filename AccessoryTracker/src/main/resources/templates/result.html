@@ -75,10 +75,8 @@
 
 <h2>Product Results</h2>
 
-<!-- No results -->
 <p th:if="${products == null or #lists.isEmpty(products)}" class="no-result">No product found.</p>
 
-<!-- Products table -->
 <table th:if="${products != null and !#lists.isEmpty(products)}">
     <tr>
         <th>ID</th>
@@ -96,7 +94,6 @@
     </tr>
 </table>
 
-<!-- Button to go to UpdateProductPage controller -->
 <div class="btn-container">
     <a class="btn" th:href="@{/UpdateProductPage}">Update Product</a>
 </div>

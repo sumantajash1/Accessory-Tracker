@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:c="http://www.w3.org/1999/XSL/Transform">
 <head>
   <meta charset="UTF-8">
   <title>Add Accessory</title>
@@ -65,7 +65,6 @@
 <body>
 <h1>Add New Accessory</h1>
 
-<!-- Display message if available -->
 <c:if test="${not empty message}">
   <div class="success-message">
     ${message}

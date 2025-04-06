@@ -80,7 +80,7 @@ public class ProductController {
 	@PostMapping("UpdateProduct")
 	public void UpdateProduct(@RequestParam("updatedWarranty") String updatedWarranty, @RequestParam("updatedPlace") String updatedPlace) {
 		if(updatedWarranty != null) {
-
+			//nothing
 		}
 	}
 

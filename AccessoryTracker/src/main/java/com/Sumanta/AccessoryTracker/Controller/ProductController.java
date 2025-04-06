@@ -91,4 +91,14 @@ public class ProductController {
 		}
 	}
 
+	@GetMapping("DeleteProductPage")
+	public String DeleteProductPage() {
+		return "deleteproduct";
+	}
+
+	@PostMapping("DeleteProduct")
+	public void DeleteProduct(@RequestParam("id") String id) {
+		service.deleteProduct(id);
+	}
+
 }

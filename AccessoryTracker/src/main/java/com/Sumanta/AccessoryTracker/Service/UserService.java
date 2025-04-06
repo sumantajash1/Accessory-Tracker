@@ -130,4 +130,8 @@ public class UserService {
     public void updatePlace(String id, String updatedPlace) {
         dao.updatePlaceByid(id, updatedPlace);
     }
+
+    public void deleteProduct(String id) {
+        dao.deleteById(id);
+    }
 }

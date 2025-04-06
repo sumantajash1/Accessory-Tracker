@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Delete Product</title>
+  <style>
+    body {
+        background-color: white;
+        font-family: Arial, sans-serif;
+        color: #2c3e50;
+        padding: 40px;
+    }
+
+    h2 {
+        color: #3498db;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    form {
+        max-width: 400px;
+        margin: 0 auto;
+        background-color: #eafaf1;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 128, 0, 0.1);
+    }
+
+    label {
+        display: block;
+        margin-bottom: 10px;
+        font-weight: bold;
+    }
+
+    input[type="text"], input[type="checkbox"] {
+        margin-bottom: 20px;
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        box-sizing: border-box;
+    }
+
+    .checkbox-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .checkbox-container input {
+        width: auto;
+        margin-right: 10px;
+    }
+
+    .btn {
+        background-color: #2ecc71;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+        width: 100%;
+    }
+
+    .btn:hover {
+        background-color: #27ae60;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Delete Product</h2>
+
+<form th:action="@{/DeleteProduct}" method="post">
+  <label for="productId">Enter Product ID to delete:</label>
+  <input type="text" id="productId" name="id" required>
+
+  <div class="checkbox-container">
+    <input type="checkbox" id="confirmDelete" name="confirmDelete" required>
+    <label for="confirmDelete" style="margin: 0;">Yes, I want to delete this product.</label>
+  </div>
+
+  <button type="submit" class="btn">Delete Product</button>
+</form>
+
+</body>
+</html>

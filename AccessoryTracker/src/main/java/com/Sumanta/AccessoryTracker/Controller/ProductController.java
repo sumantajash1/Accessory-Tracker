@@ -78,9 +78,16 @@ public class ProductController {
 	}
 
 	@PostMapping("UpdateProduct")
-	public void UpdateProduct(@RequestParam("updatedWarranty") String updatedWarranty, @RequestParam("updatedPlace") String updatedPlace) {
+	public void UpdateProduct(@RequestParam("id") String id ,@RequestParam(value="updatedWarranty", required = false) String updatedWarranty, @RequestParam(value="updatedPlace", required = false) String updatedPlace) {
 		if(updatedWarranty != null) {
-			//nothing
+			service.updateWarranty(id, updatedWarranty);
+		}
+		System.out.println(updatedWarranty);
+		System.out.println(updatedPlace);
+		System.out.println(id);
+
+		if(updatedPlace != null) {
+			service.updatePlace(id, updatedPlace);
 		}
 	}
 

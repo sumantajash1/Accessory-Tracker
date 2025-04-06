@@ -123,7 +123,11 @@ public class UserService {
         return dao.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
 
-    public void updateWarranty(String updatedWarranty) {
+    public void updateWarranty(String id, String updatedWarranty) {
+        dao.updateWarrantyByid(id, updatedWarranty);
+    }
 
+    public void updatePlace(String id, String updatedPlace) {
+        dao.updatePlaceByid(id, updatedPlace);
     }
 }

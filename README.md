@@ -38,3 +38,12 @@ View all items in a specific location
 View all accessories in the system
 
 Check warranty status
+
+🛠️ Technologies Used
+Backend: Spring Boot (Java)
+
+Frontend: Thymeleaf (HTML/CSS)
+
+Database: PostgreSQL
+
+Build Tool: Maven

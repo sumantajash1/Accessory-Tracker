@@ -3,6 +3,7 @@ package com.Sumanta.AccessoryTracker.Service;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -133,5 +134,10 @@ public class UserService {
 
     public void deleteProduct(String id) {
         dao.deleteById(id);
+    }
+
+    public boolean isIdExists(String id) {
+        Optional<Product> p = dao.findById(id);
+        return p.isPresent();
     }
 }

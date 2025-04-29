@@ -62,6 +62,12 @@ public class ProductController {
 
 	@PostMapping("AddProduct")
 	public String AddProduct(@RequestParam("id") String id, @RequestParam("name") String name, @RequestParam("type") String type, @RequestParam("place") String place, @RequestParam("warranty") String warranty, Model model) {
+		if(service.isIdExists(id)) {
+			model.addAttribute("message", "Id already in use, use different id");
+			System.out.println("already exists");
+			return "adder";
+
+		}
 		product.setId(id);
 		product.setName(name);
 		product.setPlace(place);

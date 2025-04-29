@@ -1,4 +1,4 @@
-ACCESSORY TRACKER
+# ACCESSORY TRACKER
 
 Accessory Tracker is an office inventory management system designed to track the location and status of various office accessories (mice, keyboards, laptops, monitors, etc.) across different locations (drawers, tables, storerooms, etc.).
 

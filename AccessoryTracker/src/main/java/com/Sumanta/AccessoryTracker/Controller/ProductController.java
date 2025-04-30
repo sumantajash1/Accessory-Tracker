@@ -2,14 +2,14 @@ package com.Sumanta.AccessoryTracker.Controller;
 
 import java.util.List;
 
+import com.Sumanta.AccessoryTracker.Service.ReqLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import com.Sumanta.AccessoryTracker.DAO.ProductDAO;
 import com.Sumanta.AccessoryTracker.Entity.Product;
-import com.Sumanta.AccessoryTracker.Service.UserService;
+import com.Sumanta.AccessoryTracker.Service.ProductService;
 
 @Controller
 public class ProductController {
@@ -17,8 +17,10 @@ public class ProductController {
 	@Autowired
 	private Product product;
 	@Autowired
-	private UserService service;
-	
+	private ProductService userService;
+	@Autowired
+	private ReqLogService reqLogService;
+
 	@GetMapping("/")
 	public String home() {
 		return "home";
@@ -41,7 +43,7 @@ public class ProductController {
 		product.setPlace(place);
 		product.setType(type);
 		product.setWarranty(warranty);
-		List<Product> result = service.fetch(product);
+		List<Product> result = userService.fetch(product);
 		if(result.isEmpty()) {
 			model.addAttribute("message", "No Accessory found");
 			return "Result";
@@ -53,7 +55,7 @@ public class ProductController {
 
 	@GetMapping("FetchAll")
 	public String FetchAll(Model model) {
-		List<Product> allProducts = service.FetchAll();
+		List<Product> allProducts = userService.FetchAll();
 		model.addAttribute("products", allProducts);
 		System.out.println("Fetch all entered");
 		System.out.println(allProducts);
@@ -62,18 +64,17 @@ public class ProductController {
 
 	@PostMapping("AddProduct")
 	public String AddProduct(@RequestParam("id") String id, @RequestParam("name") String name, @RequestParam("type") String type, @RequestParam("place") String place, @RequestParam("warranty") String warranty, Model model) {
-		if(service.isIdExists(id)) {
+		if(userService.isIdExists(id)) {
 			model.addAttribute("message", "Id already in use, use different id");
 			System.out.println("already exists");
 			return "adder";
-
 		}
 		product.setId(id);
 		product.setName(name);
 		product.setPlace(place);
 		product.setType(type);
 		product.setWarranty(warranty);
-		service.add(product);
+		userService.add(product);
 		model.addAttribute("message", "Product Added, Want to add anything else ?");
 		return "adder";
 	}
@@ -84,17 +85,26 @@ public class ProductController {
 	}
 
 	@PostMapping("UpdateProduct")
-	public void UpdateProduct(@RequestParam("id") String id ,@RequestParam(value="updatedWarranty", required = false) String updatedWarranty, @RequestParam(value="updatedPlace", required = false) String updatedPlace) {
+	public String UpdateProduct(@RequestParam("productId") String productId ,@RequestParam("employeeId") String employeeId ,@RequestParam(value="updatedWarranty", required = false) String updatedWarranty, @RequestParam(value="updatedPlace", required = false) String updatedPlace, Model model
+	) {
+		if(!userService.isIdExists(productId)) {
+			model.addAttribute("message", "Invalid Product Id");
+			return "updatedproduct";
+		}
 		if(updatedWarranty != null) {
-			service.updateWarranty(id, updatedWarranty);
+			userService.updateWarranty(productId, updatedWarranty);
+			reqLogService.logUpdate(productId, employeeId, updatedPlace);
 		}
-		System.out.println(updatedWarranty);
-		System.out.println(updatedPlace);
-		System.out.println(id);
-
+//		System.out.println(updatedWarranty);
+//		System.out.println(updatedPlace);
+//		System.out.println(productId);
+//		System.out.println(employeeId);
 		if(updatedPlace != null) {
-			service.updatePlace(id, updatedPlace);
+			userService.updatePlace(productId, updatedPlace);
+			reqLogService.logUpdate(productId, employeeId, updatedPlace);
 		}
+		model.addAttribute("message", "Want to update anything else ?");
+		return "updateproduct";
 	}
 
 	@GetMapping("DeleteProductPage")
@@ -104,7 +114,8 @@ public class ProductController {
 
 	@PostMapping("DeleteProduct")
 	public void DeleteProduct(@RequestParam("id") String id) {
-		service.deleteProduct(id);
+		userService.deleteProduct(id);
 	}
+
 
 }

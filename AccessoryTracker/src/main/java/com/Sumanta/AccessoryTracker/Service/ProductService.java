@@ -8,7 +8,6 @@ import java.util.Optional;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -16,14 +15,11 @@ import org.springframework.stereotype.Service;
 import com.Sumanta.AccessoryTracker.DAO.ProductDAO;
 import com.Sumanta.AccessoryTracker.Entity.Product;
 
-import jakarta.persistence.criteria.Predicate;
-import org.springframework.transaction.annotation.Transactional;
-
-import static org.springframework.data.jpa.domain.Specification.where;
+import javax.swing.text.html.Option;
 
 @Service
 @Component
-public class UserService {
+public class ProductService {
 	@Autowired
 	ProductDAO dao;
     @Value("${spring.datasource.url}")
@@ -139,5 +135,11 @@ public class UserService {
     public boolean isIdExists(String id) {
         Optional<Product> p = dao.findById(id);
         return p.isPresent();
+    }
+
+    public String getInitialPlaceFromId(String id) {
+        Optional<Product> p = dao.findById(id);
+        Product p1 = p.get(); // Id's existence is being checked in UpdateProduct method of ProductController
+        return p1.getPlace();
     }
 }

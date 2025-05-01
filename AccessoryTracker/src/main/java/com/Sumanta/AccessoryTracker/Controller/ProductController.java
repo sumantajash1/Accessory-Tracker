@@ -94,11 +94,7 @@ public class ProductController {
 		if(updatedWarranty != null) {
 			userService.updateWarranty(productId, updatedWarranty);
 			reqLogService.logUpdate(productId, employeeId, updatedPlace);
-		}
-//		System.out.println(updatedWarranty);
-//		System.out.println(updatedPlace);
-//		System.out.println(productId);
-//		System.out.println(employeeId);
+		} 	
 		if(updatedPlace != null) {
 			userService.updatePlace(productId, updatedPlace);
 			reqLogService.logUpdate(productId, employeeId, updatedPlace);

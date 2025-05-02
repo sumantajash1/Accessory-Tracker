@@ -1,11 +1,11 @@
-# Use JDK 17 base image
+# Use Maven to build the app first
+FROM maven:3.9.9-eclipse-temurin-17-alpine AS build
+WORKDIR /app
+COPY . .
+RUN mvn clean package -DskipTests
+
+# Use JDK base to run the app
 FROM eclipse-temurin:17-jdk-alpine
-
-# Create a directory inside the container to hold the app
-VOLUME /tmp
-
-# Copy the jar file into the image
-COPY target/*.jar app.jar
-
-# Command to run the app
-ENTRYPOINT ["java", "-jar", "/app.jar"]
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
+ENTRYPOINT ["java", "-jar", "app.jar"]

@@ -1,6 +1,11 @@
 services:
-  - type: web
-    name: accessory-tracker
-    runtime: java
-    buildCommand: mvn clean package -DskipTests
-    startCommand: java -jar target/AccessoryTracker-0.0.1-SNAPSHOT.jar
+  - type: web_service
+    name: accessorytracker
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    autoDeploy: true
+    envVars:
+      - key: SPRING_DATASOURCE_URL
+      - key: SPRING_DATASOURCE_USERNAME
+      - key: SPRING_DATASOURCE_PASSWORD

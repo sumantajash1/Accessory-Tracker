@@ -89,7 +89,7 @@ public class ProductController {
 	) {
 		if(!userService.isIdExists(productId)) {
 			model.addAttribute("message", "Invalid Product Id");
-			return "updatedproduct";
+			return "UpdateProductPage";
 		}
 		if(updatedWarranty != null) {
 			userService.updateWarranty(productId, updatedWarranty);

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 @Entity
 @Component
-@Table(name = "employeereqestlog")
+@Table(name = "employee_request_logs")
 public class RequestLog {
     @Id
     @Column(name = "employeeid")

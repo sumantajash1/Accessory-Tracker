@@ -17,7 +17,7 @@ public class ProductController {
 	@Autowired
 	private Product product;
 	@Autowired
-	private ProductService userService;
+	private ProductService productService;
 	@Autowired
 	private ReqLogService reqLogService;
 
@@ -43,7 +43,7 @@ public class ProductController {
 		product.setPlace(place);
 		product.setType(type);
 		product.setWarranty(warranty);
-		List<Product> result = userService.fetch(product);
+		List<Product> result = productService.fetch(product);
 		if(result.isEmpty()) {
 			model.addAttribute("message", "No Accessory found");
 			return "Result";
@@ -55,7 +55,7 @@ public class ProductController {
 
 	@GetMapping("FetchAll")
 	public String FetchAll(Model model) {
-		List<Product> allProducts = userService.FetchAll();
+		List<Product> allProducts = productService.FetchAll();
 		model.addAttribute("products", allProducts);
 		System.out.println("Fetch all entered");
 		System.out.println(allProducts);
@@ -64,7 +64,7 @@ public class ProductController {
 
 	@PostMapping("AddProduct")
 	public String AddProduct(@RequestParam("id") String id, @RequestParam("name") String name, @RequestParam("type") String type, @RequestParam("place") String place, @RequestParam("warranty") String warranty, Model model) {
-		if(userService.isIdExists(id)) {
+		if(productService.isIdExists(id)) {
 			model.addAttribute("message", "Id already in use, use different id");
 			System.out.println("already exists");
 			return "adder";
@@ -74,7 +74,7 @@ public class ProductController {
 		product.setPlace(place);
 		product.setType(type);
 		product.setWarranty(warranty);
-		userService.add(product);
+		productService.add(product);
 		model.addAttribute("message", "Product Added, Want to add anything else ?");
 		return "adder";
 	}
@@ -87,16 +87,16 @@ public class ProductController {
 	@PostMapping("UpdateProduct")
 	public String UpdateProduct(@RequestParam("productId") String productId ,@RequestParam("employeeId") String employeeId ,@RequestParam(value="updatedWarranty", required = false) String updatedWarranty, @RequestParam(value="updatedPlace", required = false) String updatedPlace, Model model
 	) {
-		if(!userService.isIdExists(productId)) {
+		if(!productService.isIdExists(productId)) {
 			model.addAttribute("message", "Invalid Product Id");
 			return "UpdateProductPage";
 		}
 		if(updatedWarranty != null) {
-			userService.updateWarranty(productId, updatedWarranty);
+			productService.updateWarranty(productId, updatedWarranty);
 			reqLogService.logUpdate(productId, employeeId, updatedPlace);
 		}
 		if(updatedPlace != null) {
-			userService.updatePlace(productId, updatedPlace);
+			productService.updatePlace(productId, updatedPlace);
 			reqLogService.logUpdate(productId, employeeId, updatedPlace);
 		}
 		model.addAttribute("message", "Want to update anything else ?");
@@ -110,7 +110,7 @@ public class ProductController {
 
 	@PostMapping("DeleteProduct")
 	public void DeleteProduct(@RequestParam("id") String id) {
-		userService.deleteProduct(id);
+		productService.deleteProduct(id);
 	}
 
 

@@ -31,4 +31,4 @@ build/
 cd
 ### VS Code ###
 .vscode/
-
+.env
